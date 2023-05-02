@@ -194,7 +194,7 @@ class MainActivity : AppCompatActivity() {
                 .setQualitySelector(QualitySelector.from(Quality.HIGHEST))
                 .build()
             videoCapture = VideoCapture.withOutput(recorder)
-
+            /*
             imageCapture = ImageCapture.Builder().build()
 
             val imageAnalyzer = ImageAnalysis.Builder()
@@ -204,7 +204,7 @@ class MainActivity : AppCompatActivity() {
                         luma -> Log.d(TAG, "Average luminosity: $luma")
                     })
                 }
-
+            */
             //Select back camera as a default
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
@@ -213,9 +213,16 @@ class MainActivity : AppCompatActivity() {
                 cameraProvider.unbindAll()
 
                 //Bind use cases to camera
+                /* Binds imageAnalyzer and imageCapture
                 cameraProvider.bindToLifecycle(
                     this, cameraSelector, preview, imageCapture, imageAnalyzer
                 )
+                */
+
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview, videoCapture
+                )
+
             }catch(exc: Exception){
                 Log.e(TAG, "Use case binding failed", exc)
             }
